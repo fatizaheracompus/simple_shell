@@ -12,8 +12,10 @@
 
 int main(int ac, char **av, char **env)
 {
-	if (ac == 1)
+
+	if (ac ==1)
 	{
+	
 		 prompet(av, env);
 	}
 	return (0);
