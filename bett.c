@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * add - function add two numbers
+ * adds_nb - function add two numbers
  * @num1: first number.
  * @num2: second number.
  *
