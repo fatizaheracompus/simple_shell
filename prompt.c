@@ -53,7 +53,6 @@ void prompet(char **av, char **env)
 		if (_strcmp(args[0], "exit") == 0)
 			exit(0);
 		cmd = get_command(args[0]);
-		printf("%s\n", buff);
 		if (!cmd)
 		{
 			printf("Command not found\n");
@@ -74,7 +73,7 @@ void prompet(char **av, char **env)
 		}
 		else
 			wait(&status);
-		free(args);
+		free(cmd);
 
 	}
 	free(buff);
