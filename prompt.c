@@ -2,6 +2,20 @@
 
 #define MAX_COMMAND 20
 /**
+  * _env - print enviormnet var
+  * @str: takes argument
+  *
+  * Return: void
+  */
+void _env(char *str)
+{
+	if (_strcmp(str, "env") == 0)
+	{
+		print_env();
+		exit(0);
+	}
+}
+/**
  * prompet - function that prompt a command line
  * @arr: arg vectorail
  * @env: array of string null
@@ -57,6 +71,7 @@ void prompet(char **av, char **env)
 		}
 		if (pid == 0)
 		{
+			_env(args[0]);
 			if (execve(args[0], args, env) == -1)
 				printf("%s: No such file or directory\n", av[0]);
 		}
