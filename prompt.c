@@ -45,7 +45,7 @@ while (1)
 
 	}
 
-	airgs[j] = strtok(buff, " \t\n");
+	args[j] = strtok(buff, " \t\n");
 	while (args[j] != 0)
 	{
 
