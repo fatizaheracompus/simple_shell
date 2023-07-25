@@ -45,7 +45,7 @@ while (1)
 
 	}
 
-	airgs[j] = strtok(buff, " \t\n");
+	args[j] = strtok(buff, " \t\n");
 	while (args[j] != 0)
 	{
 
@@ -73,8 +73,3 @@ j = 0;
 free(args[j]);
 }
 }
-<<<<<<< HEAD
-
-
-=======
->>>>>>> af0dcd15bf6acf6815c74cd69bf68b885bbccc18
