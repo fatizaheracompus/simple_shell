@@ -25,26 +25,19 @@ void _env(char *str)
 
 void prompet(char **av, char **env)
 {
-	char *buff = NULL;
+	char *buff = NULL, *cmd;
 	size_t buff_size = 0;
 	int nb_char = 0;
 	int i = 0;
 	pid_t pid;
 	int status = 0;
-	char *args[MAX_COMMAND];
-	int j = 0;
-
+	char **args;
 
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-
-		write(1, "cisfun$ ", 8);
-
+			write(1, "cisfun$ ", 8);
 		nb_char = getline(&buff, &buff_size, stdin);
-		args[j]= malloc(sizeof(char *) * 1024);
-
-
 		if (nb_char == EOF)
 		{
 			free(buff);
@@ -56,14 +49,18 @@ void prompet(char **av, char **env)
 	 		if (buff[i] == '\n')
 				buff[i] = 0;
 		}
-
-		args[j] = strtok(buff, " \t\n");
-		while (args[j] != 0)
+		args = split_command(buff, " \t\n");
+		if (_strcmp(args[0], "exit") == 0)
+			exit(0);
+		cmd = get_command(args[0]);
+		printf("%s\n", buff);
+		if (!cmd)
 		{
-			args[++j] = strtok(NULL, " \t\n");	
+			printf("Command not found\n");
+			continue;
 		}
-		
-		pid = fork();
+		else
+			pid = fork();
 		if (pid == -1)
 		{
 			perror("fork");
@@ -72,12 +69,13 @@ void prompet(char **av, char **env)
 		if (pid == 0)
 		{
 			_env(args[0]);
-			if (execve(args[0], args, env) == -1)
+			if (execve(cmd, args, env) == -1)
 				printf("%s: No such file or directory\n", av[0]);
 		}
 		else
 			wait(&status);
-		j = 0;
-		free(args[j]);
+		free(args);
+
 	}
+	free(buff);
 }
