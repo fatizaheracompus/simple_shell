@@ -21,6 +21,7 @@ void prompet(char **av, char **env)
 	int j = 0;
 
 
+<<<<<<< HEAD
 
 while (1)
 {
@@ -47,21 +48,54 @@ while (1)
 
 	args[j] = strtok(buff, " \t\n");
 	while (args[j] != 0)
+=======
+	while (1)
+>>>>>>> 8996d74ed1124affd703fb459fb5a3a2e6fae26e
 	{
+		if (isatty(STDIN_FILENO))
 
-	args[++j] = strtok(NULL, " \t\n");
-	
-	
+		write(1, "cisfun$ ", 8);
+
+		nb_char = getline(&buff, &buff_size, stdin);
+		args[j]= malloc(sizeof(char *) * 1024);
+
+
+		if (nb_char == EOF)
+		{
+			free(buff);
+			exit(EXIT_FAILURE);
+		}
+		while(buff[i] != 0)
+		{
+			i++;
+	 		if (buff[i] == '\n')
+				buff[i] = 0;
+		}
+
+		args[j] = strtok(buff, " \t\n");
+		while (args[j] != 0)
+		{
+			args[++j] = strtok(NULL, " \t\n");	
+		}
+		
+		pid = fork();
+		if (pid == -1)
+		{
+			perror("fork");
+			exit(EXIT_FAILURE);
+		}
+		if (pid == 0)
+		{
+			if (execve(args[0], args, env) == -1)
+				printf("%s: No such file or directory\n", av[0]);
+		}
+		else
+			wait(&status);
+		j = 0;
+		free(args[j]);
 	}
-
-
-	
-pid = fork();
-if (pid == -1)
-{
-	perror("fork");
-	exit(EXIT_FAILURE);
 }
+<<<<<<< HEAD
 if (pid == 0)
 {
 	if (execve(args[0], args, env) == -1)
@@ -73,3 +107,5 @@ j = 0;
 free(args[j]);
 }
 }
+=======
+>>>>>>> 8996d74ed1124affd703fb459fb5a3a2e6fae26e
