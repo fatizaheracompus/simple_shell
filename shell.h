@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+char **split_command(char *buffer, char *del);
 void prompet(char **arr, char **env);
 char **spliter_str(char *buff);
 int _strlen(char *s);

@@ -33,7 +33,7 @@ char *get_command(char *command)
 	char *token = NULL;
 	char *full_command;
 	struct stat st;
-	
+
 	token = strtok(file_path, ":");
 	while (token)
 	{
@@ -53,7 +53,7 @@ char *get_command(char *command)
   *
   * Return: void
   */
-void print_env()
+void print_env(void)
 {
 	extern char **environ;
 	int i = 0;
@@ -63,4 +63,27 @@ void print_env()
 		_puts(environ[i]);
 		i++;
 	}
+}
+/**
+  * split_command - splits command into words
+  * @buffer: the whole command
+  * @del: the delmiter
+  * Return: array of strings
+  */
+char **split_command(char *buffer, char *del)
+{
+	char **tokens;
+	char *arg;
+	int i = 0;
+
+	tokens = malloc(sizeof(char *) * 1024);
+	arg = strtok(buffer, del);
+	while (arg)
+	{
+		tokens[i] = arg;
+		arg = strtok(NULL, del);
+		i++;
+	}
+	tokens[i] = NULL;
+	return (tokens);
 }
