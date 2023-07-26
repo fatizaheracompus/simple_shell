@@ -1,9 +1,9 @@
 #include "shell.h"
 
-#define MAX_COMMAND 20
+#define MAX_COMMANDE 20
 /**
  * prompet - function that prompt a command line
- * @arr: arg vectorail
+ * @av: arg vectorail
  * @env: array of string null
  *
  * Return: void
@@ -17,23 +17,16 @@ void prompet(char **av, char **env)
 	int i = 0;
 	pid_t pid;
 	int status = 0;
-	char *args[MAX_COMMAND];
-	int j = 0;
-
-
-<<<<<<< HEAD
+	char *args[MAX_COMMANDE];
+	int k = 0
 
 while (1)
 {
-	if (isatty(STDIN_FILENO))
-
-	write(1, "cisfun$ ", 8);
-
-	nb_char = getline(&buff, &buff_size, stdin);
-	args[j]= malloc(sizeof(char *) * 1024);
-
-
-	if (nb_char == EOF)
+if (isatty(STDIN_FILENO))
+write(1, "cisfun$ ", 8);
+nb_char = getline(&buff, &buff_size, stdin);
+args[k] = malloc(sizeof(char *) * 1024);
+if (nb_char == EOF)
 	{
 	free(buff);
 		exit(EXIT_FAILURE);
@@ -43,41 +36,12 @@ while (1)
 		i++;
 	 if (buff[i] == '\n')
 		 buff[i] = 0;
-
 	}
-
-	args[j] = strtok(buff, " \t\n");
-	while (args[j] != 0)
-=======
-	while (1)
->>>>>>> 8996d74ed1124affd703fb459fb5a3a2e6fae26e
-	{
-		if (isatty(STDIN_FILENO))
-
-		write(1, "cisfun$ ", 8);
-
-		nb_char = getline(&buff, &buff_size, stdin);
-		args[j]= malloc(sizeof(char *) * 1024);
-
-
-		if (nb_char == EOF)
+args[k] = strtok(buff, " \t\n");
+		while (args[k] != 0)
 		{
-			free(buff);
-			exit(EXIT_FAILURE);
+			args[++k] = strtok(NULL, " \t\n");	
 		}
-		while(buff[i] != 0)
-		{
-			i++;
-	 		if (buff[i] == '\n')
-				buff[i] = 0;
-		}
-
-		args[j] = strtok(buff, " \t\n");
-		while (args[j] != 0)
-		{
-			args[++j] = strtok(NULL, " \t\n");	
-		}
-		
 		pid = fork();
 		if (pid == -1)
 		{
@@ -91,21 +55,7 @@ while (1)
 		}
 		else
 			wait(&status);
-		j = 0;
-		free(args[j]);
-	}
-}
-<<<<<<< HEAD
-if (pid == 0)
-{
-	if (execve(args[0], args, env) == -1)
-		printf("%s: No such file or directory\n", av[0]);
-}
-else
-wait(&status);
-j = 0;
-free(args[j]);
+		k = 0;
+		free(args[k]);
 }
 }
-=======
->>>>>>> 8996d74ed1124affd703fb459fb5a3a2e6fae26e
