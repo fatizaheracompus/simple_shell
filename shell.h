@@ -10,6 +10,9 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+ extern char **environ;
+
+
 char **split_command (char *buff, char *delm);
 void prompet(char **av, char **env);
 char **spliter_str(char *buff);

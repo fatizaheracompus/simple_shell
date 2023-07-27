@@ -7,7 +7,6 @@
   */
 char *_getenv(char *name)
 {
-	extern char **environ;
 	int i;
 	char *token = NULL;
 
@@ -55,7 +54,6 @@ char *get_command(char *command)
   */
 void print_env(void)
 {
-	extern char **environ;
 	int i = 0;
 
 	while (environ[i])
@@ -80,7 +78,7 @@ char **split_command(char *buffer, char *del)
 	arg = strtok(buffer, del);
 	while (arg)
 	{
-		tokens [i] = arg;
+		tokens[i] = arg;
 		arg = strtok(NULL, del);
 	}
 	tokens[i] = NULL;
