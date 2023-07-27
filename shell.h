@@ -10,8 +10,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-char **split_command(char *buffer, char *del);
-void prompet(char **arr, char **env);
+char **split_command (char *buff, char *delm);
+void prompet(char **av, char **env);
 char **spliter_str(char *buff);
 int _strlen(char *s);
 void _puts(char *str);
