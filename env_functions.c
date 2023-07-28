@@ -1,4 +1,6 @@
 #include "shell.h"
+#include <sys/stat.h>
+
 /**
   * _getenv - gets an envirnment variable
   * @name: name of the var
@@ -8,7 +10,7 @@
 char *_getenv(char *name)
 {
 	int i;
-	char *token = NULL;
+	char *token;
 
 	while (environ[i])
 	{
@@ -31,16 +33,16 @@ char *get_command(char *command)
 	char *file_path = _getenv("PATH");
 	char *token = NULL;
 	char *full_command;
-	struct stat st;
+	struct stat stt;
 
 	token = strtok(file_path, ":");
-	while (token)
+	while (token != 0)
 	{
 		full_command = malloc(_strlen(token) + _strlen(command) + 2);
 		_strcpy(full_command, token);
 		_strcat(full_command, "/");
 		_strcat(full_command, command);
-		if (stat(full_command, &st) == 0)
+		if (stat(full_command, &stt) == 0)
 			return (full_command);
 		free(full_command);
 		token = strtok(NULL, ":");
@@ -65,22 +67,23 @@ void print_env(void)
 /**
   * split_command - splits command into words
   * @buffer: the whole command
-  * @del: the delmiter
+  * @delm: the delmiter
   * Return: array of strings
   */
-char **split_command(char *buffer, char *del)
+char **split_command(char *buffer, char *delm)
 {
-	char **tokens;
-	char *arg;
-	int i = 0;
+	char **args;
+	char *token;
+	int j = 0;
 
-	tokens = malloc(sizeof(char *) * 1024);
-	arg = strtok(buffer, del);
-	while (arg)
+	args = malloc(sizeof(char *) * 1024);
+	token = strtok(buffer, delm);
+	while (token != 0)
 	{
-		tokens[++i] = arg;
-		arg = strtok(NULL, del);
+		args[j] = token;
+		token = strtok(NULL, delm);
+		j++;
 	}
-	tokens[i] = NULL;
-	return (tokens);
+	args[j] = NULL;
+	return (args);
 }
