@@ -27,19 +27,27 @@ void prompet(char **av, char **env)
 {
 	char *buff = NULL, *cmd;
 	size_t buff_size = 0;
-	int nb_char = 0, status = 0;
+	int nb_char = 0;
+	int i = 0;
 	pid_t pid;
+	int status = 0;
 	char **args;
 
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-		write(1, "cisfun$ ", 8);
+			write(1, "cisfun$ ", 8);
 		nb_char = getline(&buff, &buff_size, stdin);
 		if (nb_char == EOF)
 		{
 			free(buff);
 			exit(EXIT_FAILURE);
+		}
+		while (buff[i] != 0)
+		{
+			i++;
+			if (buff[i] == '\n')
+				buff[i] = 0;
 		}
 		args = split_command(buff, " \t\n");
 		if (_strcmp(args[0], "exit") == 0)
@@ -59,8 +67,8 @@ void prompet(char **av, char **env)
 		}
 		if (pid == 0)
 		{
-			
-			execve(cmd, args, env);
+			_env(args[0]);
+			if (execve(cmd, args, env) == -1)
 				printf("%s: No such file or directory\n", av[0]);
 		}
 		else

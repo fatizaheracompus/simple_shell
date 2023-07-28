@@ -78,7 +78,7 @@ char **split_command(char *buffer, char *del)
 	arg = strtok(buffer, del);
 	while (arg)
 	{
-		tokens[i] = arg;
+		tokens[++i] = arg;
 		arg = strtok(NULL, del);
 	}
 	tokens[i] = NULL;

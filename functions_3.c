@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
   * cap_string - caitalizes all words of a strin
   * @str: the string used
@@ -19,8 +20,7 @@ char *cap_string(char *str)
 				if (str[i] >= 97 && str[0] <= 122)
 					str[i] -= 32;
 			}
-		}
-	}
+		}	}
 
 	return (str);
 }
@@ -84,7 +84,7 @@ char *_strcpy(char *dest, const char *src)
 {
 	int i;
 
-	for (i = 0;src[i] != '\0'; i++)
+	for (i = 0; src[i] != '\0'; i++)
 		dest[i] = src[i];
 	dest[i] = '\0';
 	return (dest);
